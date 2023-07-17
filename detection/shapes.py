@@ -4,6 +4,7 @@ import numpy as np
 def detect_posts(im: np.array, debug: bool = False) -> list[tuple[int,int,int,int]]:
     """
     Expects instagram to have a dark background yiealds coordinates of posts in the image
+    Gives the top left most post as the last post!!!
 
     :param im: image on which we wish to detect the posts in numpy format
     :param debug: gives a picture of the detected posts
