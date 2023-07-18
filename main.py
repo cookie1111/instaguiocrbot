@@ -6,6 +6,8 @@ import numpy as np
 from detection.shapes import detect_posts
 from random import randint,random
 from interaction.interactions import *
+from interaction.actions import *
+from db.db_interaction import DataBase
 
 #TODO detection of personal accounts.
 
@@ -13,19 +15,15 @@ from interaction.interactions import *
 #search can type in instantly
 #cutecats is a good hashtag and puppies etc
 
-def main():
-    screenWidth, screenHeight = gui.size()
-    currentMouseX, currentMouseY = gui.position()
-    im = np.array(gui.screenshot())
-    posts = list(detect_posts(im))
-    for i in posts:
-        x, y, w, h = i
-        gui.moveTo(randint(x+10, x+w-10),randint(y+10, y+h-10),random()*0.5+0.5)
-        gui.click(button='middle')
-        print(i)
-    switch_tab()
-    for i in range(len(posts)):
-        sleep(1)
-        close_tab()
+TEST_DB = True
 
+
+def main():
+    #im = np.array(gui.screenshot())
+    amnt = open_all_fully_visible()
+    like_all_opened_posts(amnt)
+
+
+
+sleep(10)
 main()
