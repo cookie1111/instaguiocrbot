@@ -18,10 +18,20 @@ from db.db_interaction import DataBase
 TEST_DB = True
 
 
+#MAKE SURE TO RUN UNCLUTTER TO HIDE YOUR MOUSE CURSOR WHEN USING THE SCROLL LIKE
+
 def main():
+    pics_liked = 0
     #im = np.array(gui.screenshot())
-    amnt = open_all_fully_visible()
-    like_all_opened_posts(amnt)
+    if check_ig_open():
+        for i in range(3):
+            print("ig open")
+            amnt, coords = open_all_fully_visible()
+            im = pyautogui.screenshot(region=coords)
+            like_all_opened_posts(amnt)
+            pics_liked = pics_liked + amnt
+            scroll_till_im_not_visible(im)
+    print(f"liked_pics: {pics_liked}")
 
 
 

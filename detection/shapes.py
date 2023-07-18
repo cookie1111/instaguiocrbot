@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
 
-def detect_posts(im: np.array, debug: bool = False) -> list[tuple[int,int,int,int]]:
+def detect_posts(im: np.array, debug: bool = True) -> list[tuple[int,int,int,int]]:
     """
     Expects instagram to have a dark background yiealds coordinates of posts in the image
     Gives the top left most post as the last post!!!
@@ -10,7 +10,7 @@ def detect_posts(im: np.array, debug: bool = False) -> list[tuple[int,int,int,in
     :param debug: gives a picture of the detected posts
     """
     im = cv.cvtColor(im, cv.COLOR_BGR2GRAY)
-    kernel = np.ones((5, 5), np.uint8)
+    kernel = np.ones((3, 3), np.uint8)
     mask = im.copy()
     mask[mask != 0] = 255
     mask = cv.morphologyEx(mask, cv.MORPH_CLOSE, kernel)
@@ -41,3 +41,5 @@ def detect_posts(im: np.array, debug: bool = False) -> list[tuple[int,int,int,in
         cv.imshow("Shapes", im)
         #cv.waitKey(0)
         cv.destroyAllWindows()
+
+

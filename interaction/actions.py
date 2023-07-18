@@ -6,6 +6,7 @@ import logging
 from interaction.interactions import *
 from detection.shapes import *
 from db.db_interaction import DataBase
+from logme import setup_logger
 
 
 def open_all_fully_visible(debug=False):
@@ -39,7 +40,7 @@ def open_all_fully_visible(debug=False):
 
         print(i)
 
-    return len(posts), (x,y,w,h)
+    return len(posts), posts[0]
 
 
 # TODO go through the posts given in the previous step(these should be open in new tabs)
@@ -60,3 +61,7 @@ def like_all_opened_posts(amount, debug=False):
         check_post_liked(debug=True)
         close_tab(debug)
 
+
+def scroll_till_im_not_visible(im, debug=False):
+    while gui.locateOnScreen(im) is not None:
+        gui.press('down')
