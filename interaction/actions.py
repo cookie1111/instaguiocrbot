@@ -7,6 +7,26 @@ from interaction.interactions import *
 from detection.shapes import *
 from db.db_interaction import DataBase
 from logme import setup_logger
+import subprocess
+
+
+# prior to using this we need to check platform with platform.system()
+# make sure there is only one chrome window running in the foreground
+def get_chrome_screen_ubuntu(debug=False):
+    try:
+        res = subprocess.check_output(["xdotool", "search", "--onlyvisible", "Google"])
+    except subprocess.CalledProcessError as e:
+        print(e.returncode)
+        if e.returncode == 1:
+            print("Couldn't find defined process")
+            return None, None
+    res = res.decode("utf-8")[:-1]
+    res = subprocess.check_output(["xdotool","getwindowgeometry", res])
+    res = res.decode("utf-8")[:-1]
+    res = res.split(" ")
+    coords = res[4]
+    size = res[9]
+    return coords, size
 
 
 def open_all_fully_visible(debug=False):

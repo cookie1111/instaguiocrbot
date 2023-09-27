@@ -9,6 +9,8 @@ from random import randint,random
 import logging
 from logme import setup_logger
 
+# CTRL + L selects the address bar and ctrl + c will copy it other shortcuts still work
+
 
 def open_post_new_window(x, y, w, h, debug=False):
     """

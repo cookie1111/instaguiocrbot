@@ -1,5 +1,6 @@
 import cv2 as cv
 import numpy as np
+from PIL import Image
 
 def detect_posts(im: np.array, debug: bool = True) -> list[tuple[int,int,int,int]]:
     """
@@ -42,4 +43,24 @@ def detect_posts(im: np.array, debug: bool = True) -> list[tuple[int,int,int,int
         #cv.waitKey(0)
         cv.destroyAllWindows()
 
+#c8f4f4 rgb(200, 244, 244) hsv(180,18,96) -og
+#485454 rgb(72, 84, 84) hsv(180,14,33) -dim
 
+#f88c3c rgb(248,140,60) hsv(26,76,97)
+#583414 rgb(88,52,20) hsv(28,77,35)
+
+def calculate_filter_for_background(img1, img2):
+    og = np.array(Image.open(img1), dtype=np.float32)
+    dim = np.array(Image.open(img2), dtype=np.float32)
+
+    ratios = dim / (og+ 1e-5)
+    print(ratios)
+
+    return np.mean(ratios, axis=(0,1))
+
+
+
+# Implementing going through posts by clicking right and liking them
+# We will where the post is located by grabbing the whole image of the browser and subtracting
+# and subtracting the newer image
+#def detect_main_post(screen_g debug=False):
